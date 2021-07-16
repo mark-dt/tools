@@ -30,8 +30,8 @@ def cmdline_args():
     # Make parser object
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('-s', '--stage', required=True,
-                        type=str, help='A oder E')
+    parser.add_argument('-e', '--env', required=True,
+                        type=str, help='1 oder 2')
     parser.add_argument('-c', '--config', type=str, help='Path to config',
                         default='./config.ini')
     parser.add_argument('-d', '--dry-run', action='store_true',
