@@ -1,6 +1,15 @@
+#!/usr/bin/env python3
+"""
+Get Host units for hosts with a specific tag
+Example (in your terminal):
+    $ python3 get_hu_by_tag.py -env <TENANT_URL> -t <DT_TOKEN> (-tag "key(:value)")
+Author: Mark Bley
+Date:   22.07.2021
+Version: 0.1
+libs: argparse, json, requests, urllib3
+"""
 import logging
 import json
-import sys
 import requests
 import argparse
 import urllib3
