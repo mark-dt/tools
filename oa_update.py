@@ -1,8 +1,5 @@
-from crypt import methods
 import requests
 import json
-import logging
-import argparse
 
 # supress SSL warnings
 #import urllib3
@@ -55,7 +52,6 @@ def get_all_oa_versions():
     os_type = ['windows', 'unix']
     # TODO: check for all...
     url = utils.ROOT_URL + '/api/v1/deployment/installer/agent/versions/unix/default'
-    #/api/v1/deployment/installer/agent/versions/{osType}/{installerType}
     header = {
         "Authorization": "Api-TOKEN " + utils.PAAS,
         "Content-Type": "application/json"
@@ -84,7 +80,7 @@ def update_oa(host_id, oa_version):
 
 
 def main():
-    utils.init()
+    utils.init(__file__)
     host_list = get_all_hosts()
     latest = get_latest_oa()
     for host in host_list:

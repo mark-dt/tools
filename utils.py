@@ -18,7 +18,7 @@ def cmdline_args():
     # Make parser object
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('-s', '--stage', required=True,
+    parser.add_argument('-e', '--environment', required=True,
                         type=str, help='DT env')
     parser.add_argument('-c', '--config', type=str, help='Path to config',
                         default='./config.ini')
@@ -66,14 +66,14 @@ def make_request(url, parameters=None, method=None, payload=None):
         logging.error(res.text)
     return res
 
-def init():
+def init(instance):
     '''
     Initialize logging, parses config file and creates header for requests
     '''
     global ROOT_URL, TOKEN, HEADER, DRY_RUN, PAAS
     args = cmdline_args()
     config_path = args.config
-    env = args.stage
+    env = args.environment
     # TODO: remove, only run in dry-run while developing
     DRY_RUN = not args.dry_run
 
@@ -88,7 +88,7 @@ def init():
     else:
         log_level = logging.INFO
 
-    log_file_name = __file__.split('.')[0] + '.log'
+    log_file_name = instance.split('.')[0] + '.log'
     if args.log_path is not None:
         tmp_path = args.log_path
         if not os.path.isdir(tmp_path):
@@ -96,8 +96,6 @@ def init():
                 str(datetime.datetime.now())[:-3], tmp_path))
             exit(-1)
         log_path = os.path.join(tmp_path, log_file_name)
-        #path = path[:-1] if path[-1] == '/' else tmp_url
-        #log_path = args.log_path + 'update_mz.log'
     else:
         log_path = log_file_name
 
