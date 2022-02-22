@@ -1,9 +1,11 @@
-#$config = Get-Content config.json | ConvertFrom-Json
-#$api_token = $config.api_token
-#$uri = $config.uri
+$config = Get-Content config.json | ConvertFrom-Json
+$api_token = $config.api_token
+$root_url = $config.url
 
-$api_token = ''
-$root_url = 'https://ggg43721.sprint.dynatracelabs.com/'
+# cleanup url
+if ($root_url[$root_url.length - 1] -eq '/') {
+    $root_url = $root_url.Substring(0,$root_url.length - 1)
+}
 
 $auth_value = "Api-Token $api_token"
 
@@ -16,11 +18,11 @@ Function Convert-FromUnixDate ($UnixDate) {
 }
 
 function getUptime([String]$host_name ) {
-    $url = $root_url + 'api/v2/metrics/query'
+    $url = $root_url + '/api/v2/metrics/query'
     $payload = @{
         metricSelector = 'com.dynatrace.builtin:host.availability'
         entitySelector = 'type("HOST"),entityName("' + $host_name + '")'
-        from = '-24h'
+        from = '-6d'
         to = 'now'
         resolution = '10m'
     }

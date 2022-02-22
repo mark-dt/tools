@@ -145,3 +145,4 @@ download
 audit_logs/
 logs/
 out.json
+config.json

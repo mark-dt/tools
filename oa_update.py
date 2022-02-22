@@ -83,10 +83,13 @@ def main():
     utils.init(__file__)
     host_list = get_all_hosts()
     latest = get_latest_oa()
+    all_oa = get_all_oa_versions()
+    print(all_oa)
+    exit()
     for host in host_list:
         host_id = host['entityId']
         get_oa_update_conf(host_id)
-        update_oa(host_id, latest['latestAgentVersion'])
+        #update_oa(host_id, latest['latestAgentVersion'])
 
 
 if __name__ == '__main__':
